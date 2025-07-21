@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="description"
+          content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PolarAnything: Diffusion-based Polarimetric Image Synthesis</title>
+  
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YSQ09ZTB5R"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+  
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+  
+      gtag('js', new Date());
+  
+      gtag('config', 'G-YSQ09ZTB5R');
+    </script>
+  
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+          rel="stylesheet">
+  
+    <link rel="stylesheet" href="./static/css/bulma.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link rel="stylesheet" href="./static/css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
+  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer src="./static/js/fontawesome.all.min.js"></script>
+    <script src="./static/js/bulma-carousel.min.js"></script>
+    <script src="./static/js/bulma-slider.min.js"></script>
+    <script src="./static/js/index.js"></script>
+    <script src="https://unpkg.com/interactjs/dist/interact.min.js"></script>
+    <style>
+    .video-slider {
+      display: flex;
+      overflow: hidden;
+      position: relative;
+      width: 100%;
+    }
+  
+    .slide {
+      flex: 0 0 100%;
+      min-width: 100%;
+      transition: transform 0.5s ease;
+    }
+  
+    .button {
+      margin-top: 1rem;
+    }
+  
+  .video {
+    width: 100%;
+    }
+  
+    .caption {
+      background-color: rgb(255, 255, 255);
+      color: #000;
+      font-size: 1rem;
+      margin-top: 0rem;
+      padding: 0.1rem;
+      text-align: center;
+      width: 100%;
+    }
+      .center {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 10px;
+      }
+      .render_wrapper {
+        position: relative;
+        height: 300px;
+      }
+      .render_wrapper_small {
+        position: relative;
+        height: 250px;
+      }
+      .render_div {
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+  
+      .nested-columns {
+        margin-bottom: 0 !important;
+      }
+  </style>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script defer src="./static/js/fontawesome.all.min.js"></script>
+      <script src="./static/js/bulma-carousel.min.js"></script>
+      <script src="./static/js/bulma-slider.min.js"></script>
+      <script src="https://unpkg.com/interactjs/dist/interact.min.js"></script>
+      <script src="./static/js/index.js"></script>
+      <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+      </script>
+      <script
+        type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+      ></script>
+  </head>
+  <body>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-2 publication-title">PolarAnything: Diffusion-based Polarimetric Image Synthesis</h1>
+          <h1 class="title is-3 publication-title"><a href="https://iccv.thecvf.com/">ICCV 2025 </a></h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="">Kailong Zhang</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://youweilyu.github.io/">Youwei Lyu</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://gh-home.github.io/">Heng Guo</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://teacher.bupt.edu.cn/lisi/zh_CN/index.htm">Si Li</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://zhanyuma.cn/">Zhanyu Ma</a><sup>1</sup>
+            </span>
+            <span class="author-block">
+              <a href="https://camera.pku.edu.cn/">Boxin Shi</a><sup>2,3</sup>,
+            </span>
+          </div>
+
+          <div class="is-size-6 publication-authors">
+            <span class="author-block"><sup>1</sup>Beijing University of Posts and Telecommunications</span>
+            <span class="author-block"><sup>2</sup>State Key Laboratory for Multimedia Information Processing, School of Computer Science, Peking University</span>
+            <span class="author-block"><sup>3</sup>National Engineering Research Center of Visual Technology, School of Computer Science, Peking University</span>
+
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Arxiv</span>
+                </a>
+              </span>
+
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Dataset Link. -->
+              <span class="link-block">
+                <a href="https://github.com/PRIS-CV/PolarAnything"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data</span>
+                  </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Video -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Video</h2>
+    <div class="publication-video">
+      <iframe src=""
+              frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
+</section>
+<!-- Abstract. -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+           Efficient shape reconstruction for surfaces with complex reflectance properties is crucial for real-time
+	          virtual reality. While 3D Gaussian Splatting (3DGS)-based methods offer fast novel view rendering
+	        by leveraging their explicit surface representation, their reconstruction quality lags behind that of implicit neural representations, particularly in the case of recovering surfaces with complex reflective reflectance.
+	        To address these problems, we propose PolGS, a <span class="underline"><b>Pol</b></span>arimetric <span class="underline"><b>G</b></span>aussian <span class="underline"><b>S</b></span>platting
+		    model allowing fast reflective surface reconstruction in 10 minutes. By integrating polarimetric constraints into the
+		    3DGS framework, PolGS effectively separates specular and diffuse components, enhancing reconstruction quality for
+		    challenging reflective materials. Experimental results on the synthetic and real-world dataset validate the effectiveness of our method.
+          </p>
+
+        </div>
+      </div>
+    </div>
+</section>
+<!-- RMVP3D -->
+<!-- <section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered"></h2>
+    <img src="" class="center">
+  </div>
+</section> -->
+<!-- RMVP3D comparison -->
+<!-- <section class="section">
+  <h2 class="title is-3 has-text-centered"></h2>
+    <div class="container is-max-desktop">
+        <div class="left">
+            <h3 class="title is-5"></h3>
+      </div>
+    </div>
+  <div class="container is-max-desktop">
+    <div class="video-slider" data-slide="1">
+      <div class="slide">
+        <img src="static/images/shisa_00.png">
+        <video class="video" src="static/images/shisa.mp4" controls autoplay muted loop playsinline ></video>
+      </div>
+      <div class="slide">
+        <img src="static/images/frog_00.png">
+        <video class="video" src="static/images/frog.mp4" controls autoplay muted loop playsinline ></video>
+      </div>
+    </div>
+    <div class="tabs is-centered" data-slide="1">
+      <ul>
+        <li class="is-active" data-index="0"><a>Shisa</a></li>
+        <li data-index="1"><a>Frog</a></li>
+      </ul>
+    </div>
+  </div>
+</section> -->
+<!-- PANDORA comparison -->
+<!-- <section class="section">
+  <h2 class="title is-3 has-text-centered">Reconstrucions on PANDORA dataset</h2>
+    <div class="container is-max-desktop">
+        <div class="left">
+            <h3 class="title is-5">Input 6 views</h3>
+      </div>
+    </div>
+  <div class="container is-max-desktop">
+    <div class="video-slider" data-slide="0">
+      <div class="slide">
+        <img src="static/images/owl_00.png">
+        <video class="video" src="static/images/owl.mp4" controls autoplay muted loop playsinline ></video>
+      </div>
+      <div class="slide">
+        <img src="static/images/vase_00.png">
+        <video class="video" src="static/images/vase.mp4" controls autoplay muted loop playsinline ></video>
+      </div>
+    </div>
+    <div class="tabs is-centered" data-slide="0">
+      <ul>
+        <li class="is-active" data-index="0"><a>Owl</a></li>
+        <li data-index="1"><a>Vase</a></li>
+      </ul>
+    </div>
+  </div>
+</section> -->
+<!-- Acknowledgement -->
+<!-- <section class="section">
+  <div class="container is-max-desktop content">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3 has-text-centered">Related Links</h2>
+
+        <div class="content has-text-justified">
+          <p>
+            Our work benefits from several works.
+          </p>
+          <li>
+            Our implementation is build upon <a href="https://lioryariv.github.io/idr/">IDR</a> and <a href="https://lingjie0206.github.io/papers/NeuS/">NeuS</a>.
+          </li>
+          <li>
+            <a href="https://xucao-42.github.io/mvas_homepage/">MVAS</a>: The geometric cue formation is inspired by their work.
+          </li>
+          <li>
+            <a href="https://akshatdave.github.io/pandora/">PANDORA</a>: The photometric cue formation is inspired by their work. We also used their data for comparison.
+          </li>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+<!-- bittex -->
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title has-text-centered">BibTeX</h2>
+    <pre><code>
+      @inproceedings{
+<!--nersp2024yufei,-->
+<!--title = {NeRSP: Neural 3D Reconstruction for Reflective Objects with Sparse Polarized Images},-->
+<!--author = {Yufei, Han and Heng, Guo and Koki, Fukai and Hiroaki, Santo and Boxin, Shi and Fumio, Okura and Zhanyu, Ma and Yunpeng, Jia},-->
+<!--year = {2024},-->
+<!--booktitle = CVPR,-->
+}
+    </code>
+    </pre>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="content has-text-centered">
+        <div class="content">
+            Website adapted from <a href="https://nerfies.github.io">Nerfies</a> and <a href="https://xucao-42.github.io/mvas_homepage/">MVAS</a>.
+      </div>
+    </div>
+  </div>
+    </div>
+</footer>
+
+<script>
+  const tabContainers = document.querySelectorAll(".tabs[data-slide]");
+
+  tabContainers.forEach((tabContainer) => {
+    const slideIndex = parseInt(tabContainer.dataset.slide);
+    const videoSlider = document.querySelector(
+      `.video-slider[data-slide="${slideIndex}"]`
+    );
+    const slides = videoSlider.querySelectorAll(".slide");
+    const tabs = tabContainer.querySelectorAll("li");
+
+    function switchVideo(index) {
+      const transformValue = `translateX(-${index * 100}%)`;
+      slides.forEach((slide) => {
+        slide.style.transform = transformValue;
+      });
+    }
+
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        const index = parseInt(tab.dataset.index);
+        switchVideo(index);
+
+        // Remove the "is-active" class from all tabs within the current tabContainer
+        tabs.forEach((t) => t.classList.remove("is-active"));
+        tab.classList.add("is-active");
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
