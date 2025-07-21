@@ -117,33 +117,27 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <h1 class="title is-2 publication-title">PolGS: Polarimetric Gaussian Splatting for Fast Reflective Surface Reconstruction</h1>
+          <h1 class="title is-2 publication-title">PolarAnything: Diffusion-based Polarimetric Image Synthesis</h1>
           <h1 class="title is-3 publication-title"><a href="https://iccv.thecvf.com/">ICCV 2025 </a></h1>
           <div class="is-size-5 publication-authors">
             <span class="author-block">
-              <a href="https://yu-fei-han.github.io/homepage/">Yufei Han</a><sup>1</sup>,</span>
-            <span class="author-block">
-              <a href="">Bowen Tie</a><sup>1</sup>,
-            </span>
-            <span class="author-block">
-              <a href="https://gh-home.github.io/">Heng Guo</a><sup>1</sup>,
+              <a href="https://flzt11.github.io/homepage/">Kailong Zhang</a><sup>1</sup>,
             </span>
             <span class="author-block">
               <a href="https://youweilyu.github.io/">Youwei Lyu</a><sup>1</sup>,
             </span>
             <span class="author-block">
+              <a href="https://gh-home.github.io/">Heng Guo</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
               <a href="https://teacher.bupt.edu.cn/lisi/zh_CN/index.htm">Si Li</a><sup>1</sup>,
-            </span>
-            <span class="author-block">
-              <a href="https://camera.pku.edu.cn/">Boxin Shi</a><sup>2,3</sup>,
-            </span>
-            <span class="author-block">
-              <a href="https://sdmda.bupt.edu.cn/info/1061/1060.htm">Yunpeng Jia</a><sup>1</sup>,
             </span>
             <span class="author-block">
               <a href="https://zhanyuma.cn/">Zhanyu Ma</a><sup>1</sup>
             </span>
-
+            <span class="author-block">
+              <a href="https://camera.pku.edu.cn/">Boxin Shi</a><sup>2,3</sup>,
+            </span>
           </div>
 
           <div class="is-size-6 publication-authors">
@@ -178,7 +172,7 @@
               </span>
               <!-- Dataset Link. -->
               <span class="link-block">
-                <a href="https://github.com/PRIS-CV/NeRSP"
+                <a href="https://github.com/PRIS-CV/PolarAnything"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="far fa-images"></i>
@@ -209,13 +203,10 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-           Efficient shape reconstruction for surfaces with complex reflectance properties is crucial for real-time
-	          virtual reality. While 3D Gaussian Splatting (3DGS)-based methods offer fast novel view rendering
-	        by leveraging their explicit surface representation, their reconstruction quality lags behind that of implicit neural representations, particularly in the case of recovering surfaces with complex reflective reflectance.
-	        To address these problems, we propose PolGS, a <span class="underline"><b>Pol</b></span>arimetric <span class="underline"><b>G</b></span>aussian <span class="underline"><b>S</b></span>platting
-		    model allowing fast reflective surface reconstruction in 10 minutes. By integrating polarimetric constraints into the
-		    3DGS framework, PolGS effectively separates specular and diffuse components, enhancing reconstruction quality for
-		    challenging reflective materials. Experimental results on the synthetic and real-world dataset validate the effectiveness of our method.
+           Polarization images facilitate image enhancement and 3D reconstruction tasks, but the limited accessibility of polarization cameras hinders their broader application.
+            This gap drives the need for synthesizing photorealistic polarization images.
+            The existing polarization simulator Mitsuba relies on a parametric polarization image formation model and requires extensive 3D assets covering shape and PBR materials, preventing it from generating large-scale photorealistic images. To address this problem, we propose \pa, capable of synthesizing polarization images from a single RGB input with both photorealism and physical accuracy, eliminating the dependency on 3D asset collections.
+            Drawing inspiration from the zero-shot performance of pretrained diffusion models, we introduce a diffusion-based generative framework with an effective representation strategy that preserves the fidelity of polarization properties. Experiments show that our model generates high-quality polarization images and supports downstream tasks like shape from polarization.
           </p>
 
         </div>
